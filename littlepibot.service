@@ -1,0 +1,11 @@
+[Unit]
+Description=LittlePiBot - Telegram ChatBot with various services
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python /home/pi/devel/littlepibot/littlepibot.py
+
+[Install]
+WantedBy=multi-user.target
+
