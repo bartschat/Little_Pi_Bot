@@ -8,9 +8,10 @@ import subprocess
 from functools import wraps
 from telegram.ext import Updater, CommandHandler,Job
 import sqlite3
+from picamera import PiCamera
 
-
-LIST_OF_ADMINS = [123456678]
+camera = PiCamera()
+LIST_OF_ADMINS = [1234567890]
 
 def restricted(func):
 	@wraps(func)
@@ -114,12 +115,15 @@ def unset_interval(bot, update, chat_data):
 
 def photo(bot,update,chat_data):
 	update.message.reply_text('What are you looking at?')
-	bot.sendPhoto(chat_id = update.message.chat_id,photo=open('botcam.jpg','rb'))
+	photo_path = "/home/pi/devel/littlepibot/test.jpg"
+	time.sleep(3)
+	camera.capture(photo_path)
+	bot.sendPhoto(chat_id = update.message.chat_id,photo=open(photo_path,'rb'))
 #
 def main():
 	# global stuff
 	# Token from @botfather for the telegram bot API
-	updater = Updater('TOKEN:HERE')
+	updater = Updater('TOKEN:TOKEN')
 	# start logging
 	logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 	logger = logging.getLogger(__name__)
